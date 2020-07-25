@@ -1,0 +1,226 @@
+﻿@using Kino.ViewModels
+@model List<FilmKupacVM>
+@{
+    ViewData["Title"] = "Detalji";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<!DOCTYPE html>
+<html lang="en">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+<style>
+
+    fieldset, label {
+        margin: 0;
+        padding: 0;
+    }
+
+    body {
+        margin: 20px;
+    }
+
+    h1 {
+        font-size: 1.5em;
+        margin: 10px;
+    }
+
+    .rating {
+        border: none;
+        float: left;
+    }
+
+        .rating > input {
+            display: none;
+        }
+
+        .rating > label:before {
+            margin: 5px;
+            font-size: 1.25em;
+            font-family: FontAwesome;
+            display: inline-block;
+            content: "\f005";
+        }
+
+        .rating > .half:before {
+            content: "\f089";
+            position: absolute;
+        }
+
+        .rating > label {
+            color: #ddd;
+            float: right;
+        }
+
+        .rating > input:checked ~ label, /* show gold star when clicked */
+        .rating:not(:checked) > label:hover, /* hover current star */
+        .rating:not(:checked) > label:hover ~ label {
+            color: #FFD700;
+        }
+            /* hover previous stars in list */
+
+            .rating > input:checked + label:hover, /* hover current star when changing rating */
+            .rating > input:checked ~ label:hover,
+            .rating > label:hover ~ input:checked ~ label, /* lighten current selection */
+            .rating > input:checked ~ label:hover ~ label {
+                color: #FFED85;
+            }
+</style>
+<script>
+       function SubmitClick(id, value) {
+        var url = '@Url.Action("dodajOcjenu", "Home")';
+
+        $.post(url, { filmID: id, ocjena: value }, function () {
+        });
+	}
+    function CheckSelected(ocjena, value) {
+		return ocjena === value;
+    }
+</script>
+<head>
+
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <link href="~/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+    <link href="~/css/blog-post.css" rel="stylesheet">
+
+</head>
+<body>
+    <div class="container row">
+        <div class="col-md-8">
+
+            @foreach (var i in Model)
+            {
+                <h1 class="mt-4">
+                    @i.Naziv
+                </h1>
+                <hr />
+                <br />
+                <br />
+
+                <!-- Preview Image -->
+                <img class="img-fluid rounded" src="~/images/@i.PutanjaSlike" alt="Slika nije dodana!" asp-for="@i.PutanjaSlike">
+                <br />
+                <br />
+
+                <!-- Post Content -->
+                <b>Ocijenite film</b>
+                <br />
+                <br/>
+                <td style="width: 500px">
+                    <fieldset class="rating">
+                        <input type="radio" id="star5" name="rating" onchange="javascript: SubmitClick(@i.Id, this.value);" value="5" asp-for="@i.Ocjena" />
+                        <label class="full" for="star5" title="Awesome - 5 stars"></label>
+                        <input type="radio" id="star4half" name="rating" onchange="javascript: SubmitClick(@i.Id, this.value);" value="4 and a half" />
+                        <label class="half" for="star4half" title="Pretty good - 4.5 stars"></label>
+                        <input type="radio" id="star4" name="rating" onchange="javascript: SubmitClick(@i.Id, this.value);" value="4" asp-for="@i.Ocjena" />
+                        <label class="full" for="star4" title="Pretty good - 4 stars"></label>
+                        <input type="radio" id="star3half" name="rating" onchange="javascript: SubmitClick(@i.Id, this.value);" value="3 and a half" />
+                        <label class="half" for="star3half" title="Meh - 3.5 stars"></label>
+                        <input type="radio" id="star3" name="rating" onchange="javascript: SubmitClick(@i.Id, this.value);" value="3" asp-for="@i.Ocjena" /><label class="full" for="star3" title="Meh - 3 stars"></label>
+                        <input type="radio" id="star2half" name="rating" onchange="javascript: SubmitClick(@i.Id, this.value);" value="2 and a half" />
+                        <label class="half" for="star2half" title="Kinda bad - 2.5 stars"></label>
+                        <input type="radio" id="star2" name="rating" onchange="javascript: SubmitClick(@i.Id, this.value);" value="2" asp-for="@i.Ocjena" />
+                        <label class="full" for="star2" title="Kinda bad - 2 stars"></label>
+                        <input type="radio" id="star1half" name="rating" onchange="javascript: SubmitClick(@i.Id, this.value);" value="1 and a half" />
+                        <label class="half" for="star1half" title="Meh - 1.5 stars"></label>
+                        <input type="radio" id="star1" name="rating" onchange="javascript: SubmitClick(@i.Id, this.value);" value="1" asp-for="@i.Ocjena" />
+                        <label class="full" for="star1" title="Sucks big time - 1 star"></label>
+                        <input type="radio" id="starhalf" name="rating" onchange="javascript: SubmitClick(i.Id, this.value);" value="half" />
+                        <label class="half" for="starhalf" title="Sucks big time - 0.5 stars"></label>
+                    </fieldset>
+                </td>
+            <br />
+            <br/>
+           @if (i.ProsjecnaOcjena > 0) { 
+           <p><b>Prosječna ocjena:</b>@i.ProsjecnaOcjena </p>
+           }
+                <b>Sadržaj filma</b><br />
+                <p>@i.Sinopsis</p><hr />
+                <p> <b>Žanr:</b>@String.Join(", ", i.Zanrovi)</p> <hr />
+                <p> <b>Režiser:</b>@String.Join(", ", i.Reziseri)</p> <hr />
+                <p> <b>Glumci:</b>@String.Join(", ", i.Glumci)</p> <hr />
+                <p><b>Trajanje filma:</b>@i.Trajanje min</p><hr />
+                <p><b>Dobno ograničenje:</b>@i.Dobno</p><hr />
+                <p><b>Godina izdavanja:</b>@i.Godina</p><hr />
+                <p>Pogledajte trailer filma</p>
+                <iframe id="ytplayer" type="text/html" width="500" height="250"
+                        src="@i.Trailer"
+                        alt="Trailer nije dodan!"
+                        frameborder="0"></iframe>
+                <br />
+                <br />
+                <p><b>Projekcije</b></p>
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th>Datum početka</th>
+                            <th>Dvorana</th>
+                            <th>Cijena ulaznice</th>
+                            <th>Aktivnost</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var b in i.projekcije)
+                        {
+                            <tr>
+                                <td>@b.DatumPočetka.ToShortDateString(), @b.DatumPočetka.ToShortTimeString() </td>
+                                <td>@b.Dvorana</td>
+                                <td>@b.Cijena KM</td>
+                                <td>
+                                    <a class="btn btn-primary" asp-controller="KupacRezervacija" asp-action="Dodaj" asp-route-ProjekcijaID="@b.ProjekcijaId">
+                                        Rezerviši
+                                    </a>
+                                </td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            }
+        </div>
+        <div class="col-md-4">
+            <div class="card my-4">
+                <h5 class="card-header">Žanrovi</h5>
+                <div class="card-body">
+                    <div class="row">
+                        <div class="col-lg-6">
+                            <ul class="list-unstyled mb-0">
+                                 <li>
+                                    <a asp-action="Pretraga" asp-controller="Home"asp-route-id="1">Komedija</a>
+                                </li>
+                                <li>
+                                    <a asp-action="Pretraga" asp-controller="Home"asp-route-id="2">Drama</a>
+                                </li>
+                                <li>
+                                    <a asp-action="Pretraga" asp-controller="Home"asp-route-id="3">Romantični</a>
+                                </li>
+                            </ul>
+                        </div>
+                        <div class="col-lg-6">
+                            <ul class="list-unstyled mb-0">
+                                <li>
+                                    <a asp-action="Pretraga" asp-controller="Home"asp-route-id="4">Akcija</a>
+                                </li>
+                                <li>
+                                    <a asp-action="Pretraga" asp-controller="Home"asp-route-id="5">Horor</a>
+                                </li>
+                                <li>
+                                    <a asp-action="Pretraga" asp-controller="Home"asp-route-id="6">Fantazija</a>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    <script src="~/vendor/jquery/jquery.min.js"></script>
+<script src="~/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+
+</body>
+
+</html>
+
+

@@ -1,0 +1,48 @@
+﻿@using Kino.Models
+@using PagedList
+@model PagedList<VrstaDvorane>
+
+@{
+	ViewData["Title"] = "Prikazi";
+
+	var porukasuccess = (string)ViewData["porukasuccess"];
+	var porukaerror = (string)ViewData["porukaerror"];
+
+	List<VrstaDvorane> dvorane = (List<VrstaDvorane>)ViewData["vrste-kljuc"];
+}
+
+<h1>Vrste dvorana</h1>
+<label style="color: red">@porukaerror</label>
+<label style="color: green">@porukasuccess</label>
+<table class="table">
+	<thead>
+		<tr>
+			<th>Vrsta dvorane</th>
+			<th>Akcija</th>
+		</tr>
+	</thead>
+	<tbody>
+		@foreach (var x in Model)
+		{
+			<tr>
+				<td>@x.Naziv</td>
+				<td>
+					<a asp-controller="VrstaDvorane" asp-action="Uredi" asp-route-VrstaDvoraneID="@x.VrstaDvoraneID" class="btn btn-primary">Uredi</a>
+					<a asp-controller="VrstaDvorane" asp-action="Obrisi" asp-route-VrstaDvoraneID="@x.VrstaDvoraneID" class="btn btn-danger">Obrisi</a>
+				</td>
+			</tr>
+		}
+	</tbody>
+
+</table>
+<a href="/VrstaDvorane/DodajForma" class="btn btn-success">Dodaj novu vrstu dvorane</a>
+
+<ul class="pagination">
+	@for (int i = 1; i <= Model.PageCount; i++)
+	{
+		<li class="@(i == Model.TotalItemCount ? "page-item active" : "page-item")">
+			<a class="page-link" href="@Url.Action("Index", new { page = i })">@i</a>
+		</li>
+
+	}
+</ul>

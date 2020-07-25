@@ -1,0 +1,62 @@
+﻿@using Kino.ViewModels
+@model KupacIndex
+@{
+    ViewData["Title"] = "Moj profil";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <!-- Bootstrap core CSS -->
+    <link href="~/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- Custom styles for this template -->
+    <link href="~/css/blog-home.css" rel="stylesheet">
+</head>
+<body>
+    <div class="container">
+
+        <div class="row">
+
+            <!-- Blog Entries Column -->
+            <div class="col-md-8">
+
+                <h1 class="my-4">
+                    Moj profil
+                </h1>
+
+                <!-- Blog Post -->
+                <div class="card mb-4">
+                    <div class="card-body">
+                        <form asp-antiforgery="true">
+                            <input type="hidden" asp-for="KorisnikId" />
+                            <input type="hidden" asp-for="KupacId" />
+                            <img class="card-img-top" src="~/images/@Model.Slika" alt="Slika nije dodana!" asp-for="@Model.Slika">
+                            <br />
+                            <br />
+                            <label class="label">Ime</label>
+                            <input class="form-control" type="text" asp-for="Ime" id="input" readonly /><br />
+                            <label class="label">Prezime</label>
+                            <input class="form-control" type="text" asp-for="Prezime" id="input" readonly /><br />
+                            <label class="label">Datum rođenja</label>
+                            <input class="form-control" type="date" asp-for="Datum" id="input" readonly /><br />
+                            <label class="label">Broj telefona</label>
+                            <input class="form-control" type="text" asp-for="BrojTelefona" id="input" readonly /><br />
+                            <label class="label">Naziv grada</label>
+                            <input class="form-control" type="text" asp-for="NazivGrada" id="input" readonly />
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
+<a asp-action="UrediProfil" asp-controller="KupacProfil" asp-route-KupacId="@Model.KupacId" class="btn btn-primary">Uredi podatke</a>
+<a asp-action="PromijeniLozinku" asp-controller="KupacProfil" class="btn btn-primary">Izmijenite vašu lozinku</a>

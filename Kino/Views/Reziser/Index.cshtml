@@ -1,0 +1,77 @@
+﻿
+@{
+    ViewData["Title"] = "Index";
+}
+@using Kino.ViewModels
+@using PagedList
+@model PagedList<ReziserAddVM>
+<h1>Prikaz rezisera</h1>
+
+<label style="color:green">@ViewData["poruka-kljuc"]</label>
+<label style="color:red"> @ViewData["poruka1-kljuc"]</label>
+<style>
+    img {
+        width: 180px;
+        height: 100px;
+    }
+</style>
+<script type="text/javascript">
+        $(document).ready(function(){
+            $("#btnsave").click(function () {
+                validationForm();
+            })
+        });
+    function validationForm() {
+        if ($("#Ime").val() == "") {
+            alert("Ime ne smije biti prazno!");
+        return false;
+    }
+}
+</script>
+<table class="table">
+    <thead class="table table-bordered">
+        <tr>
+            <th>Ime</th>
+            <th>Prezime</th>
+            <th>Datum rodjenja</th>
+            <th>Mjesto rodjenja</th>
+            <th>Slika</th>
+            <th>Akcija</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>@item.Ime</td>
+                <td>@item.Prezime</td>
+                <td>@item.DatumRodjenja.Date.ToString("dd/MM/yyyy")</td>
+                <td>@item.MjestoRodjenja</td>
+
+                <td> <img src="~/images/@item.putanjaSlike" asp-for="@item.putanjaSlike" alt="Slika nije dodana!" /></td>
+                <td>
+                    <a href="/Reziser/Dodaj?id=@item.ReziserID &put=@item.putanjaSlike" class="btn btn-primary">Uredi</a>
+                    <a href="/Reziser/Obrisi?ime=@item.Ime &prezime=@item.Prezime" class="btn btn-danger">Obrisi</a>
+                </td>
+            </tr>
+        }
+
+
+    </tbody>
+</table>
+<br />
+<br />
+<a href="/home" class="btn btn-danger"><<</a>
+<a href="/Reziser/Dodaj" class="btn btn-success">Dodaj</a>
+
+<br />
+<br />
+<ul class="pagination">
+    @for (int i = 1; i <= Model.PageCount; i++)
+    {
+        <li class="@(i == Model.TotalItemCount ? "page-item active" : "page-item")">
+            <a class="page-link" href="@Url.Action("Index", new { page = i })">@i</a>
+        </li>
+
+    }
+</ul>

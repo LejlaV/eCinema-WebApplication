@@ -1,0 +1,53 @@
+﻿@using Kino.ViewModels
+@model KupacNagradnaIgraPrikaziViseVM
+@{
+    ViewData["Title"] = "Detalji nagradne igre";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <!-- Bootstrap core CSS -->
+    <link href="~/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- Custom styles for this template -->
+    <link href="~/css/blog-home.css" rel="stylesheet">
+</head>
+<body>
+    <div class="container">
+
+        <div class="row">
+
+            <!-- Blog Entries Column -->
+            <div class="col-md-8">
+
+                <h1 class="my-4">
+                   Detalji nagradne igre
+                </h1>
+
+                <!-- Blog Post -->
+                <div class="card mb-4">
+                    <div class="card-body">
+                        <h2 class="card-title">@Model.Naziv</h2>
+                        <p class="card-text"> @Model.Sadrzaj</p>
+                        <p><b>Datum početka nagradne igre @Model.Početak.ToShortDateString()</b></p><br />
+                        <p><b>Datum kraja nagradne igre @Model.Kraj.ToShortDateString()</p><br />
+                    </div>
+                    
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
+<a asp-controller="KupacNagradnaIgra" asp-action="Index">Nazad</a>
+<br />
+<br />
+<br />
+<br />
+<br />

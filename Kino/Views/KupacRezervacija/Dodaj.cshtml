@@ -1,0 +1,100 @@
+﻿@model Kino.ViewModels.RezervacijaAddVM
+
+@{
+    ViewData["Title"] = "Nova rezervacija";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h1>Nova rezervacija</h1>
+
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="Spasi" asp-antiforgery="true">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group">
+                <label class="control-label">Naziv filma</label>
+                <input asp-for="NazivFilma" readonly class="form-control" />
+                <span asp-validation-for="NazivFilma" class="text-danger"></span>
+            </div>
+            <div class="form-group" hidden>
+                <label asp-for="ProjekcijaID" class="control-label"></label>
+                <input asp-for="ProjekcijaID" hidden class="form-control" />
+                <span asp-validation-for="ProjekcijaID" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Dvorana" class="control-label"></label>
+                <input asp-for="Dvorana" readonly class="form-control" />
+                <span asp-validation-for="Dvorana" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Datum" class="control-label"></label>
+                <input type="date" asp-for="Datum" class="form-control" readonly />
+
+            </div>
+            <div class="form-group">
+                <label asp-for="DostupanBrojSjedista" class="control-label"><strong>Trenutno slobodnih sjedišta:</strong></label>
+                <input asp-for="DostupanBrojSjedista" readonly class="form-control" />
+                <span asp-validation-for="DostupanBrojSjedista" class="text-danger"></span>
+            </div>
+
+
+            @if (Model.DostupanBrojSjedista < 5)
+            {
+
+                <div class="form-group">
+                    <label asp-for="BrojSjedista" class="control-label"></label>
+                    <select asp-items="Model.BrojSjedista.Take(Model.DostupanBrojSjedista)" asp-for="OdabraniBrojSjedista" class="form-control"> </select>
+                    <span asp-validation-for="BrojSjedista" class="text-danger"></span>
+                </div>
+
+
+            }
+            else
+            {
+                <div class="form-group">
+                    <label asp-for="BrojSjedista" class="control-label"></label>
+                    <select id="brojSjedista" asp-items="Model.BrojSjedista" asp-for="OdabraniBrojSjedista" class="form-control"> </select>
+                    <span asp-validation-for="BrojSjedista" class="text-danger"></span>
+                </div>
+            }
+            <div class="form-group">
+                <label asp-for="Cijena" class="control-label">Cijena</label>
+                <input id="cijena" asp-for="Cijena" readonly class="form-control" />
+                <span asp-validation-for="Cijena" class="text-danger"></span>
+            </div>
+
+            <div class="form-group">
+                <input type="submit" value="Rezerviši" class="btn btn-primary" />
+            </div>
+
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-action="Index" asp-controller="Home">Nazad</a>
+</div>
+
+
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}
+
+<script>
+
+    var brojSjedistaInput = $("#brojSjedista");
+    var cijenaInput = $("#cijena");
+    brojSjedistaInput.on("change",
+        function () {
+
+            var broj = parseInt(brojSjedistaInput.prop("value"));
+            var cijena = parseInt(cijenaInput.prop("value"))
+            var tempCijena = @Model.Cijena * broj;
+
+            cijenaInput.val(tempCijena);
+            cijenaInput.html(tempCijena);          
+
+        });
+</script>

@@ -1,0 +1,78 @@
+﻿@using Kino
+@model List<Objava>
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h1>Index</h1>
+<table class="table">
+    <thead>
+        <tr>
+            <th>Naslov</th>
+            <th>Sadržaj</th>
+            <th>Datum objave</th>
+            <th>Uposlenik</th>
+            <th>Slika</th>
+            <th>Akcija</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var x in Model)
+        {
+            <tr>
+                <td>@x.Naslov</td>
+                <td>@x.Sadrzaj</td>
+                <td>@x.DatumObjave.Date.ToString("dd/MM/yyyy")</td>
+                <td>
+                    @if (x.Korisnik == null)
+                    {
+                        <label>Ne postoji uposlenik</label>
+                    }
+                    else
+                    {
+                        <label>@x.Korisnik.UserName</label>
+                    }
+                </td>
+                <td> <img class="card-img-top" src="~/images/@x.Slika" alt="Slika nije dodana!" asp-for="@x.Slika" /></td>
+                <td>
+                    <a asp-controller="Objava" asp-action="Obrisi" asp-route-ObjavaID="@x.ObjavaID" class="btn btn-danger">Obrisi</a> |
+                    <a asp-controller="Objava" asp-action="Uredi" asp-route-ObjavaID="@x.ObjavaID" class="btn btn-group-toggle">Uredi</a>
+                </td>
+                <td>
+                    <form id="commentForm">
+                        <input type="hidden" name="KupacId" />
+                        <input type="hidden" name="ObjavaId" value="@x.ObjavaID" />
+                        <div class="form-group">
+                            <label>Ostavite komentar</label>
+                            <textarea class="form-control" rows="3" name="Comment" placeholder="Napišite vaš komentar ovdje"></textarea>
+                        </div>
+                        <button class="btn btn-success" id="btnComment" type="button">Ostavite vaš utisak</button>
+                    </form>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+<a href="/Objava/DodajForm" class="btn btn-success">Dodaj</a>
+
+<script>
+    $("#btnComment").click(function () {
+        $.ajax({
+            url: "@Url.Action("OstaviteKomentar","Komentar")",
+            type: "post",
+            data: $("#commentForm").serialize()
+        }).done(function(response){
+            if (response.Success) {
+                window.location.reload();
+            }
+            else {
+                swal("Error!", response.Message, "error");
+            }
+        }).fail(function () {
+            swal("Error!", "Error Occured. Please try again later.", "erorr");
+        });
+    });
+</script>
+
+
+

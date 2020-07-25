@@ -1,0 +1,50 @@
+﻿@using Kino.Models
+@{
+    ViewData["Title"] = "Index";
+    var poruka = (string)ViewData["poruka-kljuc"];
+    var poruka1 = (string)ViewData["poruka1-kljuc"];
+}
+@using Kino.ViewModels
+@using PagedList
+@model PagedList<ZanrAddVM>
+<h1>Lista zanrova:</h1>
+<label style="color:green">@poruka</label>
+<label style="color:red"> @poruka1</label>
+
+<table class="table">
+    <thead class="table table-bordered">
+        <tr>
+            <th>Naziv</th>
+            <th>Opis</th>
+            <th>Akcija</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var z in Model)
+        {
+            <tr>
+                <td>@z.Naziv</td>
+                <td>@z.Opis</td>
+                <td>
+                    <a href="/Zanr/Dodaj?id=@z.ZanrID" class="btn btn-primary">Uredi</a>
+
+                    <a href="/Zanr/Obrisi?id=@z.ZanrID"class="btn btn-danger">Obrisi</a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+<br /> <br />
+<a href="/home" class="btn btn-danger"><<</a>
+
+<br />
+<br />
+<ul class="pagination">
+    @for (int i = 1; i <= Model.PageCount; i++)
+    {
+        <li class="@(i == Model.TotalItemCount ? "page-item active" : "page-item")">
+            <a class="page-link" href="@Url.Action("Index", new { page = i })">@i</a>
+        </li>
+
+    }
+</ul>

@@ -1,0 +1,33 @@
+﻿@using  Kino.Models
+@model List<Drzava>
+@{
+    ViewData["Title"] = "Prikazi";
+    var poruka = (string)ViewData["poruka-kljuc"];
+}
+
+<h1>Prikazi</h1>
+
+<label style="color:lightgreen">@poruka</label>
+<table class="table">
+    <thead>
+        <tr>
+            <th>Naziv države</th>
+            <th>Oznaka</th>
+            <th>Akcija</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var x in Model)
+        {
+            <tr>
+                <td>@x.Naziv</td>
+                <td>@x.Oznaka</td>
+                <td>
+                    <a asp-controller="Drzava" asp-action="Obrisi" asp-route-DrzavaId="@x.DrzavaID" class="btn btn-danger">Obrisi</a>|
+                    <a asp-controller="Drzava" asp-action="UrediFormu" asp-route-DrzavaId="@x.DrzavaID" class="btn btn-info">Uredi</a> |
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+<a href="/Drzava/DodajForm" class="btn btn-success">Dodaj novu</a>

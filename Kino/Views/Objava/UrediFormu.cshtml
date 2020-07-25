@@ -1,0 +1,29 @@
+﻿@model Kino.ViewModels.ObjavaAddVM
+@{
+    ViewData["Title"] = "UrediFormu";
+}
+
+<h1>Uredi objavu</h1>
+
+<form asp-action="SnimiFormu" method="post">
+    <input type="hidden" asp-for="ObjavaID" />
+
+    <div class="form-group">
+        <label>Naslov</label>
+        <input type="text" asp-for="Naslov" class="form-control" placeholder="Naslov">
+    </div>
+
+    <div class="form-group">
+        <label>Sadržaj</label>
+        <br />
+        <textarea rows="5" cols="50" asp-for="Sadrzaj" placeholder="Unesite sadržaj ..."></textarea>
+        <br />
+    </div>
+    <div class="form-group-now">
+        <label asp-for="Slika" class=" col-form-label"></label>
+        <div class="custom-file">
+            <input asp-for="Slika" class="form-control custom-file-input" />
+            <label class="custom-file-label">@Model.putanjaSlike</label>
+        </div>
+        <input type="submit" value="Snimi" class="btn btn-success" />
+</form>

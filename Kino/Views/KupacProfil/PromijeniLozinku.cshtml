@@ -1,0 +1,61 @@
+﻿@using Kino.ViewModels
+@model LoginVM
+@{
+    ViewData["Title"] = "Promijeni lozinku";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <!-- Bootstrap core CSS -->
+    <link href="~/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- Custom styles for this template -->
+    <link href="~/css/blog-home.css" rel="stylesheet">
+</head>
+<body>
+    <div class="container">
+
+        <div class="row">
+
+            <!-- Blog Entries Column -->
+            <div class="col-md-8">
+
+                <h1 class="my-4">
+                   Promjena lozinke
+                </h1>
+
+                <!-- Blog Post -->
+                <div class="card mb-4">
+                    <div class="card-body">
+                        <form asp-action="PromijeniLozinkuSnimi" asp-controller="KupacProfil" method="post">
+
+                            <label class="label">Username</label>
+                            <input class="form-control" type="text" asp-for="Username" /><br />
+                            <label class="label">Lozinka</label>
+                            <input class="form-control" type="password" asp-for="Password" /><br />
+                            <input type="submit" value="Snimi" class="btn btn-primary" />
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
+
+<a asp-action="MojProfil">Nazad</a>
+<br />
+<br />
+<br />
+<br />
+<br />
+<br />
+<br />
+<br />

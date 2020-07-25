@@ -1,0 +1,60 @@
+﻿@using Kino
+@model List<NagradnaIgra>
+@{
+
+    ViewData["Title"] = "Nagradne igre";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+
+}
+<html>
+<head>
+
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+
+    <!-- Bootstrap core CSS -->
+    <link href="~/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- Custom styles for this template -->
+    <link href="~/css/blog-home.css" rel="stylesheet">
+
+</head>
+<body>
+<div class="container">
+
+    <div class="row">
+
+        <!-- Blog Entries Column -->
+        <div class="col-md-8">
+
+            <h1 class="my-4">
+                Nagradne igre
+            </h1>
+            @foreach (var i in Model)
+            {
+                <!-- Blog Post -->
+
+                <h2 class="card-title">@i.Naziv</h2><hr />
+                <p><b>Početak nagradne igre</b> @i.Pocetak.ToShortDateString()</p><hr />
+                <p><b>Početak nagradne igre</b> @i.Kraj.ToShortDateString()</p><br />
+                <a asp-action="PrikaziVise" asp-controller="KupacNagradnaIgra" asp-route-NagradnaIgraID="@i.NagradnaIgraID" class="btn btn-primary">Pročitaj više &rarr;</a>
+                <br />
+                <br />
+                <hr />
+            }
+        </div>
+    </div>
+</div>
+
+<script src="~/vendor/jquery/jquery.min.js"></script>
+<script src="~/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+
+            </body>
+</html>
+
+
+
+

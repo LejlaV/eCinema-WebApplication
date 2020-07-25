@@ -1,0 +1,60 @@
+﻿@using Kino.ViewModels
+@using Kino.Models
+@using Kino.Helper
+@model ProjekcijaIndexVM
+@{
+    ViewData["Title"] = "Index";
+}
+@{
+    Korisnik korisnik = Context.GetLogiraniKorisnik();
+}
+<h1>Prikaz projekcija</h1>
+<table class="table">
+    <thead>
+        <tr>
+            <th>Naziv projekcije -> Film</th>
+            <th>Dvorana</th>
+            <th>Pocetak projekcije</th>
+            <th>Zavrsetak projekcije</th>
+            <th>Cijena</th>
+            <th>Akcija</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var x in Model.rows)
+        {
+            <tr>
+                <td>@x.Film</td>
+                <td>@x.Dvorana</td>
+                <td>@x.Pocetak</td>
+                <td>@x.Kraj</td>
+                <td>@x.Cijena</td>
+                <td>
+                    <a asp-controller="Projekcija" asp-action="Edit"
+                       asp-route-ProjekcijaID="@x.Id" class="btn btn-primary">Uredi</a>
+
+                    <a asp-controller="Projekcija" asp-action="Obrisi"
+                       asp-route-ProjekcijaID="@x.Id" class="btn btn-danger">Obrisi</a>
+                    @if (x.Kraj < DateTime.Now)
+                    {
+                        <button asp-controller="Rezervacija" asp-action="Dodaj"
+                                asp-route-ProjekcijaID="@x.Id" typeof=readonly class="btn btn-outline-success">
+                            Rezerviši
+                        </button>
+                    }
+                    else
+                    {
+                        @if (korisnik.UlogaID == (int)UlogaEnum.Uposlenik)
+                        {
+                            @*<a asp-controller="Rezervacija" asp-action="Dodaj"
+                               asp-route-ProjekcijaID="@x.Id" class="btn btn-outline-success">Rezerviši</a>*@
+                        }
+
+                    }
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+<a asp-controller="Projekcija" asp-action="Add" class="btn btn-success">Dodaj</a>
+

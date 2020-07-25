@@ -1,0 +1,19 @@
+﻿@using Kino.ViewModels
+@model KupacNagradnaIgraDodajVM
+@{
+    ViewData["Title"] = "DodijeliNagradu";
+}
+
+<h1>Dodijeli Nagradu</h1>
+<form asp-action="SnimiNagradnuIgru" method="post">
+    <input type="hidden" asp-for="KupacNagradnaIgra.NagradnaIgraKupacId" />
+    <input type="hidden" asp-for="KupacNagradnaIgra.KupacId" />
+    <input type="hidden" asp-for="KupacNagradnaIgra.NagradnaIgraId" />
+    <input type="hidden" asp-for="KupacId" />
+    <input type="hidden" asp-for="NagradnaIgraId" />
+    <label class="label">Kupac</label>
+    <select class="form-control" asp-for="KupacId" asp-items="Model.Kupac" id="input" disabled></select>
+    <label class="label">Nagradna igra</label>
+    <select class="form-control" asp-for="NagradnaIgraId" asp-items="Model.Nagradnaigra" id="input" disabled></select>
+<input type="submit" value="Snimi" class="btn btn-danger" />
+</form>

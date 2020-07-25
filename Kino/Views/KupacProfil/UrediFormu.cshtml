@@ -1,0 +1,87 @@
+﻿@using Kino.ViewModels
+@model KupacUrediProfil
+@{
+    ViewData["Title"] = "Uredi profil";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <!-- Bootstrap core CSS -->
+    <link href="~/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- Custom styles for this template -->
+    <link href="~/css/blog-home.css" rel="stylesheet">
+</head>
+<body>
+    <div class="container">
+
+        <div class="row">
+
+            <!-- Blog Entries Column -->
+            <div class="col-md-8">
+
+                <h1 class="my-4">
+                    Uredi podatke na profilu
+                </h1>
+
+                <!-- Blog Post -->
+                <div class="card mb-4">
+                    <div class="card-body">
+                        <form enctype="multipart/form-data" asp-action="SnimiProfil" asp-controller="KupacProfil" method="post">
+                            <input type="hidden" asp-for="KorisnikId" />
+                            <input type="hidden" asp-for="KupacId" />
+                            <label class="label">Email</label>
+                            <input class="form-control" type="text" asp-for="Email" /><br />
+                            <label class="label">Broj telefona</label>
+                            <input class="form-control" type="text" asp-for="BrojTelefona" /><br />
+                            <label class="label">Datum rodjenja</label>
+                            <input class="form-control" type="date" asp-for="DatumRodjenja" /><br />
+                            <label class="label">Grad</label>
+                            @if (Model.GradId == 0)
+                            {
+                                <select class="form-control" asp-for="GradId" asp-items="Model.grad">
+                                    <option>Odaberi drzavu</option>
+                                </select><br />
+
+                            }
+                            else
+                            {
+                                <select class="form-control" asp-for="GradId" asp-items="Model.grad"></select><br />
+                            }
+                            <label asp-for="Slika" class=" col-form-label"></label>
+                            <div class="custom-file">
+                                <input asp-for="Slika" class="form-control custom-file-input" />
+                                <label class="custom-file-label">@Model.putanja</label>
+                                <br />
+                            </div>
+                            <div id="slika">
+                                @section Scripts {
+                                    <script>
+                                        $(document).ready(function () {
+                                            $('.custom-file-input').on("change", function () {
+                                                var fileName = $(this).val().split("\\").pop();
+                                                $(this).next('.custom-file-label').html(fileName);
+                                            });
+                                        });
+                                    </script>
+                                }
+                            </div>  
+                            <input type="submit" value="Spasi promjene" class="btn btn-primary" />
+                        </form>
+                      
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
+<a asp-action="MojProfil" asp-controller="KupacProfil">Nazad</a>
+
+

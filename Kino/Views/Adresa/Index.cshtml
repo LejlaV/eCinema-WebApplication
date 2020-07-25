@@ -1,0 +1,43 @@
+﻿@using Kino.Models
+@model List<Adresa>
+@{
+    ViewData["Title"] = "Index";
+    var poruka = (string)ViewData["Adrese"];
+}
+
+<h1>Prikaz adresa</h1>
+<label style="color:lightgreen">@poruka</label>
+<table class="table">
+    <thead>
+        <tr>
+            <th>Naziv ulice</th>
+           @* <th>Grad ID</th>*@
+            <th>Grad naziv</th>
+            <th>Akcija</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var x in Model)
+        {
+            <tr>
+                <td>@x.NazivUlice</td>
+                @*<td>@x.GradId</td>*@
+                <td>
+                    @if (x.Grad == null)
+                    {
+                        <label>Nema grada</label>
+                    }
+                    else
+                    {
+                        <label>@x.Grad.Naziv</label>
+                    }
+                </td>
+                <td>
+                    <a asp-controller="Adresa" asp-action="Obrisi" asp-route-AdresaID="@x.AdresaID" class="btn btn-danger">Obrisi</a> |
+                    <a asp-controller="Adresa" asp-action="UrediForm" asp-route-AdresaID="@x.AdresaID" class="btn btn-info">Uredi</a> |
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+<a href="/Adresa/DodajForm" class="btn btn-success">Dodaj novi</a>

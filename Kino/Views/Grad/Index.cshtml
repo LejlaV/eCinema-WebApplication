@@ -1,0 +1,48 @@
+﻿@using Kino.Models
+@model List<Grad>
+    
+@{
+    
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    ViewData["Title"] = "Grad";
+   var poruka = (string)ViewData["gradovi-kljuc"];
+}
+
+<h1>Prikaz gradova</h1>
+<label style="color:lightgreen">@poruka</label>
+<table class="table">
+    <thead>
+        <tr>
+            <th>Naziv grada</th>
+            <th>Postanski broj</th>
+            @*<th>Drzava ID</th>*@
+            <th>Drzava naziv</th>
+            <th>Akcija</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var x in Model)
+        {
+        <tr>
+            <td>@x.Naziv</td>
+            <td>@x.PostanskiBroj</td>
+            @*<td>@x.DrzavaID</td>*@
+            <td>
+                @if (x.Drzava == null)
+                {
+                    <label>Nema države</label>
+                }
+                else
+                {
+                    <label>@x.Drzava.Naziv</label>
+                }
+        </td>
+        <td>
+            <a asp-controller="Grad" asp-action="Obrisi" asp-route-GradId="@x.GradID" class="btn btn-danger">Obrisi</a> |
+           <a asp-controller="Grad" asp-action="UrediForm" asp-route-GradId="@x.GradID" class="btn btn-info">Uredi</a> |
+       </td>
+        </tr>
+        }
+    </tbody>
+</table>
+<a href="/Grad/DodajForm" class="btn btn-success">Dodaj novi</a>

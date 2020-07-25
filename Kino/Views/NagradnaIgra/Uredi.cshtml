@@ -1,0 +1,22 @@
+﻿@using Kino.ViewModels
+@model NagradnaIgraUrediVM
+@{
+    ViewData["Title"] = "Uredi";
+}
+
+<h1>Uredi podatke o nagradnoj igri</h1>
+
+<form asp-action="UrediSnimi" method="post">
+    <input type="hidden" asp-for="Id" />
+    <label class="label">Naziv</label>
+    <input class="form-control" type="text" asp-for="Naziv" id="input" />
+    <label class="label">Opis</label>
+    <input class="form-control" type="text" asp-for="Opis" id="input" />
+    <label class="label">Početak</label>
+    <input class="form-control" type="date" asp-for="Pocetak" id="input" />
+    <label class="label">Kraj</label>
+    <input class="form-control" type="date" asp-for="Kraj" id="input" />
+    <input type="submit" value="Sačuvaj" class="btn btn-danger" id="snimi" />
+</form>
+
+<a asp-action="Index" asp-controller="NagradnaIgra" class="btn btn-warning">Nazad</a>

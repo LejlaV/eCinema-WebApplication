@@ -1,0 +1,78 @@
+﻿@model IEnumerable<Kino.ViewModels.RezervacijaIndex>
+
+@{
+    ViewData["Title"] = "Rezervacije";
+}
+
+<h1>Moje rezervacije</h1>
+
+
+<label style="color:green">@ViewData["poruka-kljuc"]</label>
+<label style="color:red"> @ViewData["poruka1-kljuc"]</label>
+<table class="table">
+    <thead>
+        <tr>
+            @*<th>
+                    @Html.DisplayNameFor(model => model.RezervacijaID)
+                </th>*@
+            <th>
+               Korisnik
+            </th>
+            <th>
+              Naziv filma
+            </th>
+            <th>
+             Aktivna rezervacija
+            </th>
+            <th>
+               Datum rezervacije
+            </th>
+            <th>
+               Odabrani broj sjedišta
+            </th>
+            <th>
+               Ukupna cijena
+            </th>
+            <th>Aktivnost</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+        <tr>
+
+            <td>
+                @Html.DisplayFor(modelItem => item.Kupac)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.NazivFilma)
+            </td>
+            @if (item.Zakljucena)
+            {
+                <td>NE</td>
+            }
+            else
+            {
+                <td>DA</td>
+            }
+        <td>
+            @Html.DisplayFor(modelItem => item.DatumRezervacije)
+        </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.OdabraniBrojSjedista)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.UkupnaCijena)
+            </td>
+            @if (item.Zakljucena)
+            {
+                <td>Nisu moguće aktivnosti nad rezervacijom</td>
+            }
+            else
+            {
+                <td><a class="btn btn-primary" asp-action="OtkaziRezervaciju" asp-controller="KupacRezervacija" asp-route-RezervacijaID="@item.RezervacijaID">Otkaži rezervaciju</a></td>
+            }
+        </tr>
+            }
+    </tbody>
+</table>

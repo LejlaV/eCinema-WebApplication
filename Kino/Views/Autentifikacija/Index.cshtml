@@ -1,0 +1,109 @@
+﻿@model Kino.ViewModels.LoginVM
+@{
+    ViewData["Title"] = "Login";
+    string error_poruka = (string)TempData["error_poruka"];
+    Layout = "~/Views/Shared/_LayoutAnonim.cshtml";
+}
+<h1>Login </h1>
+<div class="w3ls-login box box--big">
+    <!-- form starts here -->
+    <form asp-action="Login">
+        <div class="agile-field-txt">
+            <label>
+                <i class="fa fa-user" aria-hidden="true"></i> Korisničko ime
+            </label>
+            <input type="text" name="username" placeholder="Vaše ime"  oninvalid="this.setCustomValidity('Obavezno polje')"
+                   oninput="setCustomValidity('')" />
+            <span asp-validation-for="Username" class="text-danger"></span>
+        </div>
+        <div class="agile-field-txt">
+            <label>
+                <i class="fa fa-envelope" aria-hidden="true"></i> Password
+            </label>
+            <input type="password" name="password" placeholder="Vaš password "  id="myInput"   oninvalid="this.setCustomValidity('Obavezno polje')"
+                   oninput="setCustomValidity('')" />
+            <span asp-validation-for="Password" class="text-danger"></span>
+            <div class="agile_label">
+                <input id="check3" name="check3" type="checkbox" value="show password" onclick="myFunction()">
+                <label class="check" for="check3">Prikaži password</label>
+            </div>
+        </div>
+        <!-- script for show password -->
+        <script>
+            function myFunction() {
+                var x = document.getElementById("myInput");
+                if (x.type === "password") {
+                    x.type = "text";
+                } else {
+                    x.type = "password";
+                }
+            }
+        </script>
+        <!-- //script ends here -->
+        <div class="w3ls-bot">
+            <div class="switch-agileits">
+                <label class="switch">
+                    <input type="checkbox">
+                    <span class="slider round"></span>
+                    Zapamti me
+                </label>
+            </div>
+            <div class="form-end">
+                <input type="submit" value="LOGIN">
+            </div>
+            <div class="form-end">
+                    <input type="submit" asp-controller="Registracija" asp-action="Index" value="REGISTRUJ SE"> 
+            </div>
+            <div class="clearfix"></div>
+        </div>
+    </form>
+</div> 
+
+
+
+</div>
+<!-- //form ends here -->
+<!--copyright-->
+<div class="copy-wthree">
+    <p>
+        © 2020 eKino
+    </p>
+</div>
+<!--//copyright-->
+@*<form asp-action="Login">
+
+            <div class="form-group">
+                <label>Username: </label>
+                <div>
+                    <input asp-for="Username" class="form-control" />
+                    <span asp-validation-for="Username" class="text-danger"></span>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label>Password: </label>
+                <div>
+                    <input asp-for="Password" class="form-control" />
+                    <span asp-validation-for="Password" class="text-danger"></span>
+                </div>
+            </div>
+
+
+            <input type="submit" class="form-control btn btn-primary" value="Login" />
+            <label for="checkbox">Zapamti password</label>
+            <input asp-for="ZapamtiPassword" type="checkbox" id="checkbox" name="checkbox">
+        </form>
+
+        @if (error_poruka != null)
+    {
+        <br />
+        <div class="alert alert-danger">
+            @error_poruka
+        </div>
+    }
+        <div class="textbox">
+            <span>
+                <a class="btn" asp-controller="Registracija" asp-action="Index">Registruj se</a>
+            </span>
+        </div>
+    </div>*@

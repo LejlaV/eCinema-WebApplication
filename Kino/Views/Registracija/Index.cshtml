@@ -1,0 +1,134 @@
+﻿@using Kino.ViewModels
+@model RegistracijaIndexVM
+@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Views/Shared/_LayoutAnonim.cshtml";
+ 
+}
+
+<h1>Registracija</h1>
+<div class="w3ls-login box box--big">
+    <!-- form starts here -->
+    <form asp-action="Snimi" method="post">
+        <input type="hidden" asp-for="Uloga">
+        <div class="agile-field-txt">
+            <label>
+                <i class="fa fa-user" aria-hidden="true"></i>Ime
+            </label>
+            <input type="text" asp-for="Ime" placeholder="Vaše ime" required="" oninvalid="this.setCustomValidity('Obavezno polje')"
+                   oninput="setCustomValidity('')" />
+            <span asp-validation-for="Ime" class="text-danger"></span>
+        </div>
+        <div class="agile-field-txt">
+            <label>
+                Prezime
+            </label>
+            <input type="text" asp-for="Prezime" placeholder="Vaše prezime " required="" id="myInput" oninvalid="this.setCustomValidity('Obavezno polje')"
+                   oninput="setCustomValidity('')" />
+            <span asp-validation-for="Prezime" class="text-danger"></span>
+        </div>
+        <div class="agile-field-txt">
+            <label>
+                Broj telefona
+            </label>
+            <input type="text" asp-for="BrojTelefona" required="" placeholder="06-/---/--- " id="myInput" oninvalid="this.setCustomValidity('Obavezno polje')"
+                   oninput="setCustomValidity('')" />
+            <span asp-validation-for="BrojTelefona" class="text-danger"></span>
+        </div>
+        <div class="agile-field-txt">
+            <label>
+                Email
+            </label>
+            <input type="text" asp-for="Email" placeholder="Vaš e-mail " required="" id="myInput" oninvalid="this.setCustomValidity('Obavezno polje')"
+                   oninput="setCustomValidity('')" />
+            <span asp-validation-for="Email" class="text-danger"></span>
+        </div>
+        <div class="agile-field-txt">
+            <label>
+                Grad
+            </label>
+            <select asp-for="GradID" asp-items="@Model.gradovi" required="" id="gradID" oninvalid="this.setCustomValidity('Obavezno polje')"
+                       oninput="setCustomValidity('')">
+                <option>Odaberi grad</option>
+            </select>
+            <span asp-validation-for="GradID" class="text-danger"></span>
+        </div>
+        <div class="agile-field-txt">
+            <label>
+                Korisničko ime
+            </label>
+            <input type="text" asp-for="UserName" required="" placeholder="Vaše korisničko ime " id="myInput" oninvalid="this.setCustomValidity('Obavezno polje')"
+                   oninput="setCustomValidity('')" />
+            <span asp-validation-for="UserName" class="text-danger"></span>
+        </div>
+        <div class="agile-field-txt">
+            <label>
+                <i class="fa fa-envelope" aria-hidden="true"></i> Password
+            </label>
+            <input type="password" required="" asp-for="Password" placeholder="Vaš password " id="myInput" oninvalid="this.setCustomValidity('Obavezno polje')"
+                   oninput="setCustomValidity('')" />
+            <span asp-validation-for="Password" class="text-danger"></span>
+        </div>
+        <div class="w3ls-bot">
+            <div class="form-end">
+                <input type="submit" value="REGISTRUJ SE">
+            </div>
+            <div class="clearfix"></div>
+        </div>
+    </form>
+    </div>
+        @*<form asp-action="Snimi" method="post">
+                <input type="hidden" asp-for="Uloga">
+
+                <div class="login-box">
+                    <h1>Registracija</h1>
+
+                    <div class="textbox">
+                        <label>Ime</label>
+                        <input type="text" id="ime" asp-for="Ime" placeholder="Ime" required />
+                    </div>
+
+                    <div class="textbox">
+                        <label>Prezime</label>
+                        <input type="text" id="prezime" asp-for="Prezime" placeholder="Prezime" required />
+                    </div>
+
+                    <div class="textbox">
+                        <label>Broj telefona</label>
+                        <input type="text" id="brojtelefona" asp-for="BrojTelefona" placeholder="Broj telefona" required />
+                    </div>
+
+
+                    <div class="textbox">
+                        <label>Grad</label>
+                        <select asp-for="GradID" asp-items="@Model.gradovi" id="gradID"><option>Odaberi grad</option></select>
+                    </div>
+
+
+
+                    <div class="textbox">
+                        <label>Korisnicko ime</label>
+                        <input type="text" id="username" asp-for="UserName" placeholder="Korisničko ime" required=""
+                               oninvalid="this.setCustomValidity('Obavezno polje')" oninput="setCustomValidity('')" />
+                    </div>
+
+                    <div class="textbox">
+                        <label>Sifra</label>
+                        <input asp-for="PasswordHash" type="password" id="password" placeholder="Lozinka" required=""
+                               oninvalid="this.setCustomValidity('Obavezno polje')" oninput="setCustomValidity('')" />
+                    </div>
+                    <label for="checkbox">Zapamti me</label>
+                    <input type="checkbox" id="checkbox" name="checkbox">
+
+                    @Html.AntiForgeryToken();
+                    <input type="submit" class="btn" value="Potvrdi registraciju">
+                    <br /><br />
+
+                    <div class="textbox">
+                        <span>
+                            <a class="btn" asp-controller="Login" asp-action="Index">Već imam račun </a>
+                        </span>
+                    </div>
+
+                </div>
+            </form>*@

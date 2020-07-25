@@ -1,0 +1,15 @@
+﻿@using  Kino
+@model Kino.ViewModels.VrstaDvoraneVM
+@{
+	ViewData["Title"] = "DodajUrediForma";
+}
+
+<h1>Unesite podatke</h1>
+<form asp-action="DodajSnimi" method="post">
+	<input type="hidden" asp-for="VrstaDvoraneID" />
+	<div class="form-group">
+		<label>Naziv</label>
+		<input type="text" asp-for="Naziv" class="form-control" placeholder="Naziv">
+	</div>
+	<input type="submit" value="Dodaj" class="btn btn-success" />
+</form>

@@ -1,0 +1,30 @@
+﻿@using Kino
+@model Kino.ViewModels.KinoObjekatVM
+@{
+	ViewData["Title"] = "DodajUrediForma";
+}
+
+<h1>Unesite podatke</h1>
+
+<form asp-action="DodajSnimi" method="post">
+	<input type="hidden" asp-for="KinoID" />
+	<div class="form-group">
+		<label>Naziv</label>
+		<input type="text" asp-for="Naziv" class="form-control" placeholder="Naziv">
+	</div>
+
+	<div class="form-group">
+		<label>Adresa</label>
+		@if (Model.AdresaId == 0)
+		{
+			<select class="form-control" asp-for="AdresaId" asp-items="Model.Adresa">
+				<option>Odaberi adresu</option>
+			</select>
+		}
+		else
+		{
+			<select class="form-control" asp-for="AdresaId" asp-items="Model.Adresa"></select>
+		}
+	</div>
+	<input type="submit" value="Snimi" class="btn btn-success" />
+</form>

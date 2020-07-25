@@ -1,0 +1,27 @@
+﻿
+@{
+    ViewData["Title"] = "DodajForm";
+}
+@using Kino.ViewModels
+@model ZanrAddVM
+<h1>Dodaj novi zanr</h1>
+
+<form action="/Zanr/DodajSnimi" method="post">
+    <div>
+        <input type="hidden" asp-for="@Model.ZanrID"/>
+    </div>
+    <div>
+        <label>Naziv</label>
+        <input type="text" class="form-control" asp-for="@Model.Naziv" placeholder="Naziv">
+    </div>
+    <div class="form-group" id="form1">
+        <label>Opis</label> <br />
+        <textarea rows="5" cols="50" asp-for="@Model.Opis" name="opis" id="form1" placeholder="Enter text here.."></textarea>
+    </div>
+    <input type="submit" value="Snimi" />
+</form>
+
+<br />
+<br />
+<a href="/zanr" class="btn btn-danger"><<</a>
+

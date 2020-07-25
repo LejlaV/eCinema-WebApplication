@@ -1,0 +1,34 @@
+﻿@using Kino
+@model Kino.ViewModels.AdresaEditVM
+@{
+    ViewData["Title"] = "UrediForm";
+}
+
+<h1>Popunite podatke</h1>
+
+
+<form asp-action="Snimi" method="post">
+    <input type="hidden" asp-for="AdresaID" />
+
+    <div class="form-group">
+        <label>Naziv ulice</label>
+        <input type="text" asp-for="NazivUlice" class="form-control" placeholder="Naziv ulice">
+    </div>
+   
+    <div class="form-group">
+        <label>Grad</label>
+
+        @if (Model.GradId == 0)
+        {
+            <select class="form-control" asp-for="GradId" asp-items="Model.Grad">
+                <option>Odaberi grad</option>
+            </select>
+        }
+        else
+        {
+            <select class="form-control" asp-for="GradId" asp-items="Model.Grad"></select>
+        }
+    </div>
+    <input type="submit" value="Snimi" class="btn btn-success" />
+</form>
+

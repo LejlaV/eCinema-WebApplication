@@ -1,0 +1,19 @@
+﻿@using  Kino
+@model Kino.ViewModels.DrzavaEditVM
+@{ 
+    ViewData["Title"] = "DodajForm";
+}
+
+<h1>Popunite podatke</h1>
+<form asp-action="Snimi" method="post">
+    <input type="hidden" asp-for="DrzavaID" />
+    <div class="form-group">
+        <label>Naziv</label>
+        <input type="text" asp-for="Naziv" class="form-control" placeholder="Naziv" >
+    </div>
+    <div class="form-group">
+        <label>Oznaka</label>
+        <input type="text" asp-for="Oznaka" class="form-control" placeholder="Oznaka" >
+    </div>
+    <input type="submit" value="Snimi" class="btn btn-success" />
+</form>

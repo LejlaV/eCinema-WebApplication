@@ -1,0 +1,31 @@
+﻿@using Kino.ViewModels
+@model IzaberiKupcaVM
+<style>
+	#stavke {
+        margin-top: 20px;
+	}
+</style>
+@using (Html.BeginForm("Send", "SMS", FormMethod.Post))
+{
+    <form id="form" class="form-group">
+        <img src="~/images/cover.png" width="100%"  class="center"/>
+        <div id="stavke">
+            <div class="form-control">
+                <strong>Pošalji poruku:</strong>
+            </div>
+            <div class="form-control">
+                <select id="to" name="to" asp-items="Model.Kupac">
+                    <option value="">
+                        Odaberi kupca
+                    </option>
+                </select>
+            </div>
+            <div class="form-control">
+                <input id="text" name="text" type="text" placeholder="Text" />
+            </div>
+            <div class="form-control">
+                <input type="submit" value="Send" />
+            </div>
+        </div>
+    </form>
+}

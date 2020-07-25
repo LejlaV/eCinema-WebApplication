@@ -1,0 +1,42 @@
+﻿
+@{
+    ViewData["Title"] = "DodajForm";
+}
+@using Kino.Models
+@using Kino.ViewModels
+@model ObjavaAddVM
+<h1>Dodaj objavu</h1>
+<form enctype="multipart/form-data" asp-controller="Objava" asp-action="Snimi" method="post">
+    <input type="hidden" asp-for="UposlenikID" />
+    <div class="form-group">
+        <label>Naslov</label>
+        <input type="text" asp-for="Naslov" class="form-control" placeholder="Unesite naslov">
+        <label>Sadrzaj</label>
+        <br />
+        <textarea rows="5" cols="50" asp-for="Sadrzaj" placeholder="Unesite sadržaj ..."></textarea>
+        <br />
+  
+        <div class="form-group-now">
+            <label asp-for="Slika" class=" col-form-label"></label>
+            <div class="custom-file">
+                <input asp-for="Slika" class="form-control custom-file-input" />
+                <label class="custom-file-label">@Model.putanjaSlike</label>
+            </div>
+        </div>
+    </div>
+    <input type="submit" value="Snimi" />
+    @section Scripts {
+        <script>
+            $(document).ready(function () {
+                $('.custom-file-input').on("change", function () {
+                    var fileName = $(this).val().split("\\").pop();
+                    $(this).next('.custom-file-label').html(fileName);
+                });
+            });
+        </script>
+    }
+</form>
+
+<br />
+<br />
+

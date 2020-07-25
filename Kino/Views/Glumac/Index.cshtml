@@ -1,0 +1,82 @@
+﻿
+@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    ViewData["Title"] = "Index";
+    string n;
+}
+@using Kino.ViewModels
+@using PagedList
+@using PagedList.Mvc
+@model PagedList<GlumacAddVM>
+
+<h1>Prikaz glumaca</h1>
+<label style="color:green">@ViewData["poruka-kljuc"]</label>
+<label style="color:red"> @ViewData["poruka1-kljuc"]</label>
+<style>
+    img {
+        width: 180px;
+        height: 100px;
+    }
+</style>
+<script src="https://code.jquery.com/jquery-1.11.1.min.js"></script>
+<script src="https://cdn.jsdelivr.net/jquery.validation/1.16.0/jquery.validate.min.js"></script>
+<script src="https://cdn.jsdelivr.net/jquery.validation/1.16.0/additional-methods.min.js"></script>
+    <script type="text/javascript">
+        $(document).ready(function(){
+            $("#btnsave").click(function () {
+                validationForm();
+            })
+        });
+    function validationForm() {
+        if ($("#Ime").val() == "") {
+            alert("Ime ne smije biti prazno!");
+        return false;
+    }
+}
+</script>
+<table class="table">
+    <thead class="table table-bordered">
+        <tr>
+            <th>Ime</th>
+            <th>Prezime</th>
+            <th>Datum rodjenja</th>
+            <th>Mjesto rodjenja</th>
+            <th>Slika</th>
+            <th>Akcija</th>
+        </tr>
+    </thead>
+
+    <tbody>
+        @foreach (var item in Model)
+        {
+
+            <tr>
+                <td>@item.Ime</td>
+                <td>@item.Prezime</td>
+                <td>@item.DatumRodjenja.Date.ToString("dd/MM/yyyy")</td>
+                <td>@item.MjestoRodjenja</td>
+
+                <td> <img src="~/images/@item.putanjaSlike" asp-for="@item.putanjaSlike" alt="Slika nije dodana!" /></td>
+
+                <td>
+                    <a href="/Glumac/Dodaj?id=@item.GlumacID &put=@item.putanjaSlike" class="btn btn-primary">Uredi</a>
+                    <a href="/Glumac/Obrisi?ime=@item.Ime &prezime=@item.Prezime" class="btn btn-danger">Obrisi</a>
+                </td>
+            </tr>
+        }
+    </tbody>
+
+</table>
+<a href="/home" class="btn btn-danger"><<</a>
+<a href="/Glumac/Dodaj" class="btn btn-success">Dodaj</a>
+<br />
+<br />
+<ul class="pagination">
+    @for (int i = 1; i <= Model.PageCount; i++)
+    {
+        <li class="@(i == Model.TotalItemCount ? "page-item active" : "page-item")">
+            <a class="page-link" href="@Url.Action("Index", new { page = i })">@i</a>
+        </li>
+
+    }
+</ul>

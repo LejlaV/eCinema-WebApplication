@@ -1,0 +1,43 @@
+﻿
+@{
+    ViewData["Title"] = "Index";
+}
+@using Kino.ViewModels
+@model List<NagradnaIgra>
+
+<h1>Nagradna igra</h1>
+
+<table id="table_id" class="row-border" style="width:100%">
+    <thead>
+        <tr>
+            <th>Naziv </th>
+            <th>Opis </th>
+            <th>Početak</th>
+            <th>Kraj</th>
+            <th> </th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var x in Model)
+        {
+
+            <tr>
+                <td>@x.Naziv</td>
+                <td>@x.Opis</td>
+                <td>@x.Pocetak.ToShortDateString()</td>
+                <td>@x.Kraj.ToShortDateString()</td>
+                <td>
+                    <a class="btn btn-danger" asp-action="Obrisi" asp-route-id="@x.NagradnaIgraID">Obriši</a>
+                   
+
+                    <a class="btn btn-primary" asp-action="Uredi" asp-route-id="@x.NagradnaIgraID"><i class="fas fa-edit"></i>  Uredi</a>
+
+                    <a class="btn btn-outline-primary" asp-action="DodijeliNagradu" asp-route-id="@x.NagradnaIgraID"><i class="fas fa-gifts"></i>  Dodijeli nagradu</a>
+
+                </td>
+            </tr>
+        }
+        </tbody>
+    </table>
+        <a class="btn btn-success" asp-action="Dodaj"><i class="fas fa-plus-circle"></i>  Dodaj novu</a>
+        <a class="btn btn-outline-info" asp-action="PrikazKupacaNagradneIgre"><i class="fas fa-gifts"></i> Prikaži dodijeljene nagrade</a>

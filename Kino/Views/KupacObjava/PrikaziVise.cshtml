@@ -1,0 +1,100 @@
+﻿@using Kino.ViewModels
+@model ObjavaIndex
+@{
+    ViewData["Title"] = "Detalji";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <!-- Bootstrap core CSS -->
+    <link href="~/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- Custom styles for this template -->
+    <link href="~/css/blog-home.css" rel="stylesheet">
+</head>
+<body><div class="container">
+
+    <div class="row">
+
+        <!-- Blog Entries Column -->
+        <div class="col-md-8">
+
+            <h1 class="my-4">
+               Novosti
+            </h1>
+
+            <!-- Blog Post -->
+            <div class="card mb-4">
+                <img class="card-img-top" src="~/images/@Model.Slika" alt="Slika nije dodana!" asp-for="@Model.Slika">
+                <div class="card-body">
+                    <h2 class="card-title">@Model.Naslov</h2>
+                    <p class="card-text"> @Model.Sadrzaj</p>
+                </div>
+                <div class="card-footer text-muted">
+                    Postavljeno @Model.DatumObjave.ToShortDateString() , @Model.DatumObjave.ToShortTimeString()
+
+                </div>
+            </div>
+            </div>
+        </div>
+    </div>                      
+
+</body>
+</html>
+            <div class="card card-outline-secondary my-4">
+                <div class="card card-header">
+                    <div class="card-header">Komentari</div>
+                    <div class="card-body">
+                        @if (Model.komentari != null & Model.komentari.Count > 0)
+                        {
+                            foreach (var comment in Model.komentari)
+                            {
+                                <p>@comment.Sadrzaj</p>
+                                <small class="text-muted">Napisao: @Model.ImePrez. ,  @comment.Datum.ToString("dd MMM HH:mm:ss")</small>
+                                <small class="btn-link"><a asp-action="Obrisi" asp-controller="KupacObjava" asp-route-id="@comment.KomentarId">Obriši</a></small>
+                                <hr />
+                            }
+                        }
+                        else
+                        {
+                            <p>Nema komentara na ovoj objavi</p>
+                            <hr />
+
+                        }
+                    </div>
+                    <form id="commentForm">
+                        <input type="hidden" name="KupacId" />
+                        <input type="hidden" name="ObjavaId" value="@Model.ObjavaID" />
+                        <div class="form-group">
+                            <label>Ostavite komentar</label>
+                            <textarea class="form-control" rows="3" name="Text" placeholder="Napišite vaš komentar ovdje"></textarea>
+                        </div>
+                        <button class="btn btn-primary" id="btnComment" type="button">Ostavite vaš utisak</button>
+                    </form>
+                </div>
+            </div>
+
+
+            <script>
+    $("#btnComment").click(function () {
+        $.ajax({
+            url: "@Url.Action("OstaviteKomentar","Komentar")",
+            type: "post",
+            data: $("#commentForm").serialize()
+        }).done(function(response){
+            if (response.success) {
+                window.location.reload();
+            }
+
+        }).fail(function () {
+         //   alert(response.Message.alert("Uspjesno ste pohranili");
+        });
+    });
+            </script>
+

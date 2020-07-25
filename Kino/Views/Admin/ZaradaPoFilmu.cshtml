@@ -1,0 +1,49 @@
+﻿
+    @using Kino.Models
+    @using Rotativa
+    @model  List<Film>
+<h3 style="text-align:center"><strong>Izvještaj o filmovima koji su ostvarili najveći profit</strong></h3>
+<br />
+<br />
+<table class="table table-bordered">
+    <thead>
+        <tr>
+            <th>Rbr.</th>
+            <th>Naziv filma</th>
+            <th>Opis</th>
+            <th>Zarada po filmu</th>
+        </tr>
+    </thead>
+    <tbody>
+        @{
+            int brojac = 1;
+            @foreach (var item in Model)
+        {
+            <tr>
+                <td>@brojac</td>
+                <td>@item.Naziv</td>
+                <td>@item.Sinopsis</td>
+                <td>@String.Concat(item.Zarada+" "+"KM")</td>
+            </tr>
+            brojac = brojac + 1;
+        }
+            }
+    </tbody>
+</table>
+<style>
+   .align-bottom{
+     
+       text-align: right;    
+      
+   }
+</style>
+<br />
+<br />
+<br />
+<br />
+<div id="dragidiv" class="align-bottom" contextmenu="bottomofthepage">
+    <div><strong>Datum:</strong> @DateTime.Now</div>
+
+    <div><strong>Ime i prezime:</strong> Adna Marić </div>
+    <div><strong>Potpis:</strong> __________</div>
+</div>

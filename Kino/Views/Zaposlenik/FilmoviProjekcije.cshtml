@@ -1,0 +1,40 @@
+﻿@using Kino.ViewModels
+@model ZaposlenikProfilVM
+@using PagedList
+
+@{
+	ViewData["Title"] = "Moj profil";
+}
+
+<div class="text-center">
+	<table class="table table-striped">
+		<thead>
+			<tr>
+				<th> <h1 class="display-4">Kino</h1> </th>
+			</tr>
+		</thead>
+		<tbody>
+			<tr>
+				<td style="display:block;"><a class="btn btn-dark btn-lg btn-block" asp-controller="Zaposlenik" asp-action="KinoObjekatIndex">Prikaz kino objekata</a></td>
+				<td style="display:block;"><a class="btn btn-dark btn-lg btn-block" asp-controller="Zaposlenik" asp-action="DvoranaIndex">Prikaz dvorana</a></td>
+
+				<td style="display:block;"><a class="btn btn-dark btn-lg btn-block" asp-controller="Zanr" asp-action="Index">Prikaz zanrova</a></td>
+				<td style="display:block;"><a class="btn btn-dark btn-lg btn-block" asp-controller="Zanr" asp-action="Dodaj">Upravljanje zanrovima</a></td>
+
+				<td style="display:block;"><a class="btn btn-dark btn-lg btn-block" asp-controller="Film" asp-action="Dodaj">Upravljanje filmovima</a></td>
+
+				<td style="display:block;"><a class="btn btn-dark btn-lg btn-block" asp-controller="Glumac" asp-action="Index">Prikaz glumaca</a></td>
+				<td style="display:block;"><a class="btn btn-dark btn-lg btn-block" asp-controller="Glumac" asp-action="Dodaj">Upravljanje glumcima</a></td>
+
+				<td style="display:block;"><a class="btn btn-dark btn-lg btn-block" asp-controller="Reziser" asp-action="Index">Prikaz rezisera</a></td>
+				<td style="display:block;"><a class="btn btn-dark btn-lg btn-block" asp-controller="Reziser" asp-action="Dodaj">Upravljanje reziserima</a></td>
+
+				<td style="display:block;"><a class="btn btn-dark btn-lg btn-block" asp-controller="Projekcija" asp-action="Index">Prikaz projekcija</a></td>
+				<td style="display:block;"><a class="btn btn-dark btn-lg btn-block" asp-controller="Projekcija" asp-action="Add">Upravljanje projekcijama</a></td>
+				
+				<td style="display:block;"><a class="btn btn-dark btn-lg btn-block" asp-controller="Zaposlenik" asp-action="PrikazRezervacija">Prikaz rezervacija</a></td>
+
+			</tr>
+		</tbody>
+	</table>
+</div>

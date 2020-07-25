@@ -1,0 +1,26 @@
+﻿@using Kino.ViewModels
+@model ZaposlenikProfilVM
+@{
+	ViewData["Title"] = "Moj profil";
+}
+
+	<div class="text-center">
+		<table class="table table-striped">
+			<thead>
+				<tr>
+					<th> <h1 class="display-4">Kino</h1> </th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr>
+					
+					<td style="display:block;"><a class="btn btn-dark btn-lg btn-block" asp-controller="NagradnaIgra" asp-action="Index">Prikaz nagradnih igara</a></td>
+					<td style="display:block;"><a class="btn btn-dark btn-lg btn-block" asp-controller="NagradnaIgra" asp-action="Dodaj">Upravljanje nagradnim igrama</a></td>
+
+					<td style="display:block;"><a class="btn btn-dark btn-lg btn-block" asp-controller="Objava" asp-action="Index">Prikaz objava</a></td>
+					<td style="display:block;"><a class="btn btn-dark btn-lg btn-block" asp-controller="Objava" asp-action="DodajForm">Upravljanje objavama</a></td>
+				
+				</tr>
+			</tbody>
+		</table>
+	</div>

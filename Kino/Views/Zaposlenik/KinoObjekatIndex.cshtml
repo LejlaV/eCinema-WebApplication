@@ -1,0 +1,41 @@
+﻿@using Kino.Models
+@model List<KinoObjekat>
+
+@{
+	ViewData["Title"] = "Index";
+	var poruka = (string)ViewData["kina"];
+	var porukasuccess = (string)TempData["porukasuccess"];
+	var porukaerror = (string)TempData["porukaerror"];
+}
+
+<h1>Prikaz kino objekata</h1>
+<label style="color:red">@porukaerror</label>
+<label style="color:green">@porukasuccess</label>
+
+<table class="table">
+	<thead>
+		<tr>
+			<th>Naziv kina</th>
+			<th>Adresa ulice</th>
+		</tr>
+	</thead>
+	<tbody>
+		@foreach (var x in Model)
+		{
+			<tr>
+				<td>@x.Naziv</td>
+
+				<td>
+					@if (x.Adresa == null)
+					{
+						<label>Nema adrese</label>
+					}
+					else
+					{
+						<label>@x.Adresa.NazivUlice</label>
+					}
+				</td>
+			</tr>
+		}
+	</tbody>
+</table>

@@ -1,0 +1,65 @@
+﻿@using Kino
+@model Kino.ViewModels.DvoranaVM
+@{
+    ViewData["Title"] = "DodajUrediForma";
+}
+
+<h1>Unesite podatke</h1>
+<form asp-action="DodajSnimi" method="post">
+    <input type="hidden" asp-for=DvoranaID>
+    <div class="form-group">
+        <label>Naziv</label>
+        <input type="text" asp-for="Naziv" class="form-control" placeholder="Naziv">
+    </div>
+    <div class="form-group">
+        <label>Opis</label> <br />
+        <textarea rows="5" cols="50" name="Opis" placeholder="Unesite text ..."></textarea>
+    </div>
+    <div class="form-group">
+        <label>Kapacitet dvorane</label>
+        @*<label>Kapacitet dvorane</label>
+        <select name="Kapacitet" asp-for="OdabraniKapacitet" >
+            @foreach (var item in Model.Kapacitet)
+            {
+                <option value="@item.Value">@item.Text</option>
+
+            }
+
+        </select>*@
+        <select asp-for="OdabraniBrojRedova" asp-items="Model.BrojRedova"></select>
+        <select asp-for="OdabraniBrojKolona" asp-items="Model.BrojKolona"></select>
+
+    </div>
+    @*<select class="form-control" asp-for="Kapacitet" asp-items="Model.Kapacitet">
+       
+ </select>*@
+    <div class="form-group">
+        <label>Vrsta dvorane</label>
+        @if (Model.VrstaDvoraneID == 0)
+        {
+            <select class="form-control" asp-for="VrstaDvoraneID" asp-items="Model.VrstaDvorane">
+                <option>Odaberite vrstu dvorane</option>
+            </select>
+        }
+        else
+        {
+            <select class="form-control" asp-for="VrstaDvoraneID" asp-items="Model.VrstaDvorane"></select>
+        }
+    </div>
+    <div class="form-group">
+        <label>Kino objekat</label>
+        @if (Model.KinoObjekatID == 0)
+        {
+            <select class="form-control" asp-for="KinoObjekatID" asp-items="Model.KinoObjekat">
+                <option>Odaberite kino objekat</option>
+            </select>
+        }
+        else
+        {
+            <select class="form-control" asp-for="KinoObjekatID" asp-items="Model.KinoObjekat">
+            </select>
+        }
+    </div>
+    <input type="submit" value="Dodaj" class="btn btn-success">
+</form>
+

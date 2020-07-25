@@ -1,0 +1,157 @@
+﻿
+@{
+    ViewData["Title"] = "Index";
+}
+
+@using Kino.ViewModels
+@model List<FilmIndexVM>
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+<style>
+
+    fieldset, label {
+        margin: 0;
+        padding: 0;
+    }
+
+    body {
+        margin: 20px;
+    }
+
+    h1 {
+        font-size: 1.5em;
+        margin: 10px;
+    }
+
+    .rating {
+        border: none;
+        float: left;
+    }
+
+        .rating > input {
+            display: none;
+        }
+
+        .rating > label:before {
+            margin: 5px;
+            font-size: 1.25em;
+            font-family: FontAwesome;
+            display: inline-block;
+            content: "\f005";
+        }
+
+        .rating > .half:before {
+            content: "\f089";
+            position: absolute;
+        }
+
+        .rating > label {
+            color: #ddd;
+            float: right;
+        }
+
+        .rating > input:checked ~ label, /* show gold star when clicked */
+        .rating:not(:checked) > label:hover, /* hover current star */
+        .rating:not(:checked) > label:hover ~ label {
+            color: #FFD700;
+        }
+            /* hover previous stars in list */
+
+            .rating > input:checked + label:hover, /* hover current star when changing rating */
+            .rating > input:checked ~ label:hover,
+            .rating > label:hover ~ input:checked ~ label, /* lighten current selection */
+            .rating > input:checked ~ label:hover ~ label {
+                color: #FFED85;
+            }
+</style>
+<script>
+     function SubmitClick(id, value) {
+        var url = '@Url.Action("dodajOcjenu", "Film")';
+
+        $.post(url, { filmID: id, ocjena: value }, function () {
+        });
+	}
+    function CheckSelected(ocjena, value) {
+		return ocjena === value;
+    }
+</script>
+
+<table class="table table-bordered">
+    <thead>
+        <tr>
+            <th>Naziv</th>
+            <th>Trajanje</th>
+            <th>Žanr</th>
+            <th>Režiser</th>
+            <th>Dobno ograničenje</th>
+            <th>Godina izdavanja</th>
+            <th>Glumac</th>
+            @*<th>Sinopsis</th>*@
+            @*<th>Aktivan</th>*@
+            <th>Trailer</th>
+            <th>Akcija</th>
+            <th>Slika</th>
+            @*<th>Ocjena</th>*@
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+        <tr>
+            <td>@item.Naziv</td>
+            <td>@item.Trajanje</td>
+            <td>
+                @String.Join(", ", item.Zanrovi)
+            </td>
+            <td>@String.Join(",", item.Reziseri)</td>
+            <td>@item.Dobno</td>
+            <td>@item.Godina</td>
+            <td>@String.Join(",", item.Glumci)</td>
+            @*<td>@item.Sinopsis</td>*@
+            @*<td>@item.Aktivan</td>*@
+            <td>
+                <iframe id="ytplayer" type="text/html" width="200" height="100"
+                        src="@item.Trailer"
+                        alt="Trailer nije dodan!"
+                        frameborder="0"></iframe>
+            </td>
+            <td>
+                <a href="/Film/Dodaj?id=@item.Id&put=@item.putanjaSlike" class="btn btn-primary">Uredi</a> |
+                <a href="/Film/Obrisi?id=@item.Id" class="btn btn-danger">Obrisi</a>
+                <a href="/Projekcija/Index?MovieID=@item.Id" class="btn btn-outline-secondary">Prikaži projekcije</a>
+            <td> <img class="card-img-top" src="~/images/@item.putanjaSlike" asp-for="@item.putanjaSlike" alt="Slika nije dodana!" /></td>
+
+            </td>
+
+            @*<td style="width: 500px">
+            <fieldset class="rating">
+                <input type="radio" id="star5" name="rating" onchange="javascript: SubmitClick(@item.Id, this.value);" value="5" asp-for="@item.Ocjena" />
+                <label class="full" for="star5" title="Awesome - 5 stars"></label>
+                <input type="radio" id="star4half" name="rating" onchange="javascript: SubmitClick(@item.Id, this.value);" value="4 and a half" />
+                <label class="half" for="star4half" title="Pretty good - 4.5 stars"></label>
+                <input type="radio" id="star4" name="rating" onchange="javascript: SubmitClick(@item.Id, this.value);" value="4" asp-for="@item.Ocjena" />
+                <label class="full" for="star4" title="Pretty good - 4 stars"></label>
+                <input type="radio" id="star3half" name="rating" onchange="javascript: SubmitClick(@item.Id, this.value);" value="3 and a half" />
+                <label class="half" for="star3half" title="Meh - 3.5 stars"></label>
+                <input type="radio" id="star3" name="rating" onchange="javascript: SubmitClick(@item.Id, this.value);" value="3" asp-for="@item.Ocjena" /><label class="full" for="star3" title="Meh - 3 stars"></label>
+                <input type="radio" id="star2half" name="rating" onchange="javascript: SubmitClick(@item.Id, this.value);" value="2 and a half" />
+                <label class="half" for="star2half" title="Kinda bad - 2.5 stars"></label>
+                <input type="radio" id="star2" name="rating" onchange="javascript: SubmitClick(@item.Id, this.value);" value="2" asp-for="@item.Ocjena" />
+                <label class="full" for="star2" title="Kinda bad - 2 stars"></label>
+                <input type="radio" id="star1half" name="rating" onchange="javascript: SubmitClick(@item.Id, this.value);" value="1 and a half" />
+                <label class="half" for="star1half" title="Meh - 1.5 stars"></label>
+                <input type="radio" id="star1" name="rating" onchange="javascript: SubmitClick(@item.Id, this.value);" value="1" asp-for="@item.Ocjena" />
+                <label class="full" for="star1" title="Sucks big time - 1 star"></label>
+                <input type="radio" id="starhalf" name="rating" onchange="javascript: SubmitClick(@item.Id, this.value);" value="half" />
+                <label class="half" for="starhalf" title="Sucks big time - 0.5 stars"></label>
+            </fieldset>
+        </td>*@
+
+
+
+        </tr>
+        }
+    </tbody>
+</table>
+
+<a href="/Film/Dodaj" class="btn btn-success">Dodaj</a>

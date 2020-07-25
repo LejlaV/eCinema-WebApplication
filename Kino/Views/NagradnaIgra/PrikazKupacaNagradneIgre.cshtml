@@ -1,0 +1,25 @@
+﻿@using Kino.ViewModels
+@model NagradnaIgraKupciPrikazVM
+@{
+    ViewData["Title"] = "PrikazKupacaNagradneIgre";
+}
+
+<h1>Dodijeljene nagrade kupcima</h1>
+<table>
+    <thead>
+        <tr>
+            <th>Nagradna igra</th>
+            <th>Kupac</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var b in Model.lista)
+        {
+            <tr>
+                <td>@b.Nagrada</td>
+                <td>@b.Kupac</td>
+            </tr>
+        }
+    </tbody>
+</table>
+<a href="/NagradnaIgra/Index" class="btn btn-warning">Nazad</a>

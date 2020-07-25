@@ -1,0 +1,176 @@
+﻿@{ 
+    Layout = null;
+}
+
+<style>
+    .navbar-header{
+    color:white;
+   
+}
+    .container{
+        
+    }
+</style>
+
+    <nav class="navbar navbar-inverse top-navbar" id="top-nav">
+        <div class="container-fluid">
+            <div class="navbar-header">
+                <h5>Dobrodošli, @Model.ImePrezime </h5>
+                <h5>Datum pristupa:@DateTime.Now</h5>
+                <a href="javascript:;" class="sidebar-toggle">
+                    <i class="fa fa-bars"></i>
+                </a>
+                <span class="close-btn" id="hide-btn"><i class="fa fa-times" aria-hidden="true"></i></span>
+            </div>
+
+            <ul class="social-icon pull-right list-inline">
+
+                <li class="dropdown">
+                    <a class="messages-link dropdown-toggle" data-toggle="dropdown" href="#">
+                        <span class="glyphicon glyphicon-envelope"></span>
+                        <span class="number">4</span>
+                        <span class="caret"></span>
+                    </a>
+                    <ul class="dropdown-menu">
+                        <li><a href="#">Page 1-1</a></li>
+                        <li><a href="#">Page 1-2</a></li>
+                        <li><a href="#">Page 1-3</a></li>
+                    </ul>
+                </li>
+
+                <li class="dropdown">
+                    <a class="alerts-link dropdown-toggle" data-toggle="dropdown" href="#">
+                        <span class="glyphicon glyphicon-bell"></span>
+                        <span class="number">6</span>
+                        <span class="caret"></span>
+                    </a>
+                    <ul class="dropdown-menu">
+                        <li><a href="#">Page 1-1</a></li>
+                        <li><a href="#">Page 1-2</a></li>
+                        <li><a href="#">Page 1-3</a></li>
+                    </ul>
+                </li>
+
+                <li class="dropdown">
+                    <a class="tasks-link dropdown-toggle" data-toggle="dropdown" href="#">
+                        <span class="glyphicon glyphicon-th-list"></span>
+                        <span class="number">11</span>
+                        <span class="caret"></span>
+                    </a>
+                    <ul class="dropdown-menu">
+                        <li><a href="#">Page 1-1</a></li>
+                        <li><a href="#">Page 1-2</a></li>
+                        <li><a href="#">Page 1-3</a></li>
+                    </ul>
+                </li>
+
+                <li class="dropdown">
+                    <a class="user-link dropdown-toggle" data-toggle="dropdown" href="#">
+                        <span class="glyphicon glyphicon-user"></span>
+                        <span class="caret"></span>
+                    </a>
+                    <ul class="dropdown-menu">
+                        <li><a href="#">Page 1-1</a></li>
+                        <li><a href="#">Page 1-2</a></li>
+                        <li><a href="#">Page 1-3</a></li>
+                    </ul>
+                </li>
+            </ul>
+        </div>
+    </nav>
+
+<link href="//netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
+<script src="//netdna.bootstrapcdn.com/bootstrap/3.0.0/js/bootstrap.min.js"></script>
+<script src="//code.jquery.com/jquery-1.11.1.min.js"></script>
+<!------ Include the above in your HEAD tag ---------->
+
+<style>
+    .btn-huge {
+        padding-top: 20px;
+        padding-bottom: 20px;
+    }
+    .btn-info{
+        background-color:#8e44ad;
+       
+        border-color:black;
+    }
+    .container{
+        border:thin;
+    }
+   .btn-info:hover{
+       color:#34495e;
+   }
+   #odpr{
+       
+   }
+   #odpr:active{
+       background-color:black;
+       color:white;
+       border-color:white;
+   }
+   #odpr:hover{
+       background-color:black;
+       color:white;
+        border-color:white;
+   }
+   #dodavanje:active{
+       background-color:black;
+       color:white;
+        border-color:white;
+   }
+   #dodavanje:hover{
+       background-color:black;
+       color:white;
+        border-color:white;
+   }
+   #white:active{
+       background-color:black;
+        border-color:white;
+       color:white;
+   }
+    #white:hover{
+       background-color:black;
+       color:white;
+        border-color:white;
+   }
+}
+</style>
+<div class="container">
+    <br>
+    <div class="row">
+        <div class="col-md-12">
+            <a id="white" asp-action="Index" asp-controller="Uposlenik" class="btn btn-info btn-lg btn-block btn-huge">Vrsta Dvorane</a>
+        </div>
+    </div>
+    <br />
+    <div class="row">
+        <div class="col-md-12">
+            <a id="dodavanje" asp-action="Index" asp-controller="Dvorana" class="btn btn-info btn-lg btn-block btn-huge">Dvorana</a>
+        </div>
+    </div>
+    <br />
+    <div class="row">
+        <div class="col-md-12">
+            <a id="white" asp-action="Index" asp-controller="KinoObjekat" class="btn btn-info btn-lg btn-block btn-huge">Kino objekat</a>
+        </div>
+
+    </div>
+    <br />
+    <div class="row">
+        <div class="col-md-12">
+            <a id="odpr" asp-action="Index" asp-controller="Uposlenik" class="btn btn-info btn-lg btn-block btn-huge">Oduzmi permisije</a>
+        </div>
+    </div>
+    <br />
+    <div class="row">
+        <div class="col-md-12">
+            <a id="odpr" asp-action="Index" asp-controller="Objave" class="btn btn-info btn-lg btn-block btn-huge">Objave</a>
+        </div>
+    </div>
+    <br />
+    <a class="btn btn-labeled btn-danger" asp-action="Index" asp-controller="Home">
+        <span class="btn-label"><i class="glyphicon glyphicon-chevron-left"></i></span>Go back
+    </a>
+</div>
+    <br />
+    

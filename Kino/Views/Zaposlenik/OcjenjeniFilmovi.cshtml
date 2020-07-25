@@ -1,0 +1,40 @@
+﻿@using Kino.Models
+@{
+	ViewData["Title"] = "Index";
+}
+@model List<FilmOcjena>
+<h3 style="text-align:center"><strong>Izvještaj o najbolje ocjenjenim filmovima </strong></h3>
+<br />
+<br />
+<table class="table table-bordered">
+	<thead>
+		<tr>
+			<th>Filmovi</th>
+			<th>Prosjecna ocjena </th>
+		</tr>
+	</thead>
+	<tbody>
+		@foreach (var x in Model)
+		{
+			<tr>
+				<td>@x.Film.Naziv</td>
+				<td>@x.prosjecnaOcjena</td>
+			</tr>
+		}
+	</tbody>
+</table>
+<style>
+	.align-bottom {
+		text-align: right;
+	}
+</style>
+<br />
+<br />
+<br />
+<br />
+<div id="dragidiv" class="align-bottom" contextmenu="bottomofthepage">
+	<div><strong>Datum:</strong> @DateTime.Now</div>
+
+	<div><strong>Ime i prezime:</strong> Uposlenik </div>
+	<div><strong>Potpis:</strong> __________</div>
+</div>

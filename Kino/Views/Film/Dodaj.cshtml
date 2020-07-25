@@ -1,0 +1,103 @@
+﻿
+@model Kino.ViewModels.FilmAddVM
+
+@{
+    ViewData["Title"] = "Dodaj";
+}
+
+<h1>Dodaj novi film</h1>
+
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form enctype="multipart/form-data" asp-action="DodajSnimi">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group" hidden>
+                <label asp-for="Id" class="control-label"></label>
+                <input asp-for="Id" class="form-control" />
+                <span asp-validation-for="Id" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Naziv" class="control-label"></label>
+                <input asp-for="Naziv" class="form-control" />
+                <span asp-validation-for="Naziv" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Zanr" class="control-label">Žanr</label>
+                <select asp-for="Zanrovi" asp-items="Model.Zanr"></select>
+                <span asp-validation-for="Zanrovi" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Glumac" class="control-label"> Glumci</label>
+                <select asp-for="Glumci" asp-items="Model.Glumac">Odaberi</select>
+                <span asp-validation-for="Glumci" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Reziser" class="control-label"> Režiseri</label>
+                <select asp-for="Reziseri" asp-items="Model.Reziser">Odaberi</select>
+                <span asp-validation-for="Reziseri" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Trajanje" class="control-label"></label>
+                <input asp-for="Trajanje" class="form-control" />
+                <span asp-validation-for="Trajanje" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="DobnoOgraničenje" class="control-label"></label>
+                <input asp-for="DobnoOgraničenje" class="form-control" />
+                <span asp-validation-for="DobnoOgraničenje" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="GodinaIzdavanja" class="control-label"></label>
+                <input asp-for="GodinaIzdavanja" class="form-control" />
+                <span asp-validation-for="GodinaIzdavanja" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Sinopsis" class="control-label"></label>
+                <input asp-for="Sinopsis" class="form-control" />
+                <span asp-validation-for="Sinopsis" class="text-danger"></span>
+            </div>
+            <div class="form-group form-check">
+                <label class="form-check-label">
+                    <input class="form-check-input" asp-for="Aktuelan" /> @Html.DisplayNameFor(model => model.Aktuelan)
+                </label>
+            </div>
+            <div class="form-group-now">
+                <label asp-for="Slika" class=" col-form-label"></label>
+                <div class="custom-file">
+                    <input asp-for="Slika" class="form-control custom-file-input" />
+                    <label class="custom-file-label">@Model.putanjaSlike</label>
+                </div>
+            </div>
+            <div class="form-group">
+                <label asp-for="Trailer" class="control-label"></label>
+                <input asp-for="Trailer" class="form-control" />
+                <span asp-validation-for="Trailer" class="text-danger"></span>
+            </div>
+            <br />
+            <br />
+            <div class="form-group">
+                <input type="submit" value="Snimi" class="btn btn-primary" />
+            </div>
+            <div id="slika">
+                @section Scripts {
+                    <script>
+                        $(document).ready(function () {
+                            $('.custom-file-input').on("change", function () {
+                                var fileName = $(this).val().split("\\").pop();
+                                $(this).next('.custom-file-label').html(fileName);
+                            });
+                        });
+                    </script>
+                }
+            </div>
+
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-action="Index">Back to List</a>
+</div>
+
+

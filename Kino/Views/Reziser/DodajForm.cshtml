@@ -1,0 +1,95 @@
+﻿
+@{
+    ViewData["Title"] = "DodajFomr";
+}
+
+<h1>Dodaj novog rezisera</h1>
+
+@using Kino.Models
+@using Kino.ViewModels
+@model ReziserAddVM
+<form enctype="multipart/form-data" asp-controller="Reziser" asp-action="DodajSnimi" method="post">
+    <div class="form-group">
+        <input type="hidden" asp-for="ReziserID" />
+        <label>Ime</label>
+        <input type="text" class="form-control" name="Ime" asp-for="Ime" placeholder="Unesite ime">
+        <span asp-validation-for="Prezime" class="text-danger"></span>
+
+        <label>Prezime</label>
+        <input type="text" class="form-control" name="Prezime" asp-for="Prezime" placeholder="Unesite prezime">
+        <span asp-validation-for="Prezime" class="text-danger"></span>
+
+        @*uraditi putem jsona*@
+        @Html.LabelFor(model => model.DatumRodjenja, htmlAttributes: new { @class = "control-label" })
+        @Html.EditorFor(model => model.DatumRodjenja, new { htmlAttributes = new { @class = "form-control" } })
+        @Html.ValidationMessageFor(model => model.DatumRodjenja, "", new { @class = "text-danger" })
+        <label>Grad</label>
+        <select class="form-control" asp-for="GradID" asp-items="Model.Grad">
+            <option>Odaberi Grad</option>
+        </select>
+        <div class="form-group-now">
+            <label asp-for="Slika" class=" col-form-label"></label>
+            <div class="custom-file">
+                <input asp-for="Slika" class="form-control custom-file-input" />
+                <label class="custom-file-label">@Model.putanjaSlike</label>
+            </div>
+        </div>
+    </div>
+    <input type="submit" value="Snimi" />
+    <div id="slika">
+        @section Scripts {
+            <script>
+                $(document).ready(function () {
+                    $('.custom-file-input').on("change", function () {
+                        var fileName = $(this).val().split("\\").pop();
+                        $(this).next('.custom-file-label').html(fileName);
+                    });
+                });
+            </script>
+        }
+    </div>
+</form>
+
+<br />
+<br />
+<a href="/Reziser" class="btn btn-danger"><<</a>
+
+<script>
+
+    $(function () {
+
+        $("#myForm").validate({
+
+            rules: {
+                Ime: {
+                    regex: "/^([a-zA-Z])$/",
+                    required: true,
+                    minlength: 3
+                },
+                Prezime: {
+                    regex: "/^([a-zA-Z])$/",
+                    required: true,
+                    minlength: 3
+                },
+            },
+
+            messages: {
+
+                Ime: {
+                    regex: "Ime moze sadrzavati samo tekstualne podatke!",
+                    required: "Morate unijeti vrijednost",
+                    minlength: "Morate unijeti minimalno 3 slova!"
+                },
+                Prezime: {
+                    regex: "Ime moze sadrzavati samo tekstualne podatke!",
+                    required: "Morate unijeti vrijednost",
+                    minlength: "Morate unijeti minimalno 3 slova!"
+                },
+            },
+
+            submitHandler: function (form) {
+                form.submit();
+
+            });
+    });
+</script>

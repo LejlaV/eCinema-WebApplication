@@ -1,0 +1,105 @@
+﻿
+@{
+    ViewData["Title"] = "DodajForm";
+
+}
+@using Kino.Models
+@using Kino.ViewModels
+@model GlumacAddVM
+
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <script src="https://code.jquery.com/jquery-1.11.1.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/jquery.validation/1.16.0/jquery.validate.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/jquery.validation/1.16.0/additional-methods.min.js"></script>
+    <script src="https://ajax.aspnetcdn.com/ajax/jquery.validate/1.9/jquery.validate.min.js"></script>
+    <link rel="stylesheet" href="https://jqueryvalidation.org/files/demo/site-demos.css">
+</head>
+<h1>Dodaj novog glumca</h1>
+<form id="myForm" enctype="multipart/form-data" asp-controller="Glumac" asp-action="DodajSnimi" method="post">
+    <input type="hidden" asp-for="GlumacID" />
+    <label>Ime</label>
+    <input type="text" class="form-control" name="Ime" asp-for="Ime" placeholder="Unesite ime">
+    <span asp-validation-for="Ime" class="text-danger"></span>
+    <label>Prezime</label>
+    <input type="text" class="form-control" name="Prezime" asp-for="Prezime" placeholder="Unesite prezime">
+    <span asp-validation-for="Prezime" class="text-danger"></span>
+    @*uraditi putem jsona*@
+    @Html.LabelFor(model => model.DatumRodjenja, htmlAttributes: new { @class = "control-label" })
+    @Html.EditorFor(model => model.DatumRodjenja, new { htmlAttributes = new { @class = "form-control" } })
+    @Html.ValidationMessageFor(model => model.DatumRodjenja, "", new { @class = "text-danger" })
+    <label>Grad</label>
+    <select class="form-control" asp-for="GradID" asp-items="Model.Grad">
+        <option>Odaberi Grad</option>
+    </select>
+
+    <div class="form-group-now">
+
+        <label asp-for="Slika" class=" col-form-label"></label>
+        <div class="custom-file">
+            <input asp-for="Slika" class="form-control custom-file-input" />
+
+            <label asp-for="Slika" class="custom-file-label">@Model.putanjaSlike</label>
+
+        </div>
+    </div>
+
+
+    <div id="slika">
+        <input type="submit" value="Snimi" />
+        @section Scripts {
+            <script>
+                $(document).ready(function () {
+                    $('.custom-file-input').on("change", function () {
+                        var fileName = $(this).val().split("\\").pop();
+                        $(this).next('.custom-file-label').html(fileName);
+                    });
+                });
+            </script>
+        }
+    </div>
+</form>
+
+<br />
+<br />
+<a href="/Glumac" class="btn btn-danger"><<</a>
+
+<script>
+
+    $(function () {
+
+        $("#myForm").validate({
+
+            rules: {
+                Ime: {
+                    regex: "/^([a-zA-Z])$/",
+                    required: true,
+                    minlength: 3
+                },
+                Prezime: {
+                    regex: "/^([a-zA-Z])$/",
+                    required: true,
+                    minlength: 3
+                },
+            },
+
+            messages: {
+
+                Ime: {
+                    regex: "Ime moze sadrzavati samo tekstualne podatke!",
+                    required: "Morate unijeti vrijednost",
+                    minlength: "Morate unijeti minimalno 3 slova!"
+                },
+                Prezime: {
+                    regex: "Ime moze sadrzavati samo tekstualne podatke!",
+                    required: "Morate unijeti vrijednost",
+                    minlength: "Morate unijeti minimalno 3 slova!"
+                },
+            },
+
+            submitHandler: function (form) {
+                form.submit();
+
+            });
+    });
+</script>

@@ -24,7 +24,7 @@
     <PackageReference Include="MimeKit" Version="2.8.0" />
     <PackageReference Include="NETCore.MailKit" Version="2.0.3" />
     <PackageReference Include="NETStandard.Library" Version="2.0.3" />
-    <PackageReference Include="Newtonsoft.Json" Version="12.0.3" />
+    <PackageReference Include="Newtonsoft.Json" Version="13.0.2" />
     <PackageReference Include="Newtonsoft.JsonResult" Version="1.0.5778.10762" />
     <PackageReference Include="Nexmo.Csharp.Client" Version="5.1.0" />
     <PackageReference Include="PagedList.Mvc" Version="4.5.0" />
